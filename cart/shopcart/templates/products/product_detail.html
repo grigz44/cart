@@ -1,0 +1,15 @@
+{% block content %}
+  <div class="product-detail">
+    <h1>{{ product.product }}</h1>
+    <img src="{{ product.image.url }}" alt="{{ product.product }}">
+    <p>{{ product.description }}</p>
+    <p>Price: ₹{{ product.amount }}</p>
+    <form action="{% url 'add_to_cart' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="product_id" value="{{ product.id }}">
+      <label for="quantity">Quantity:</label>
+      <input type="number" name="quantity" id="quantity" value="1" min="1">
+      <button type="submit">Add to cart</button>
+    </form>
+  </div>
+{% endblock %}

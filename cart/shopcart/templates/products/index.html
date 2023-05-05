@@ -1,0 +1,20 @@
+{% block content %}
+  <h1>Products</h1>
+  <div class="products">
+    {% for product in products %}
+      <div class="product">
+        <h2>{{ product.product }}</h2>
+        <img src="{{ product.image.url }}" style="height: 50px;" alt="{{ product.product }}">
+        <p>Price: ₹{{ product.amount }}</p>
+        <form action="{% url 'add_to_cart' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ product.id }}">
+          <label for="quantity{{ product.id }}">Quantity:</label>
+          <input type="number" name="quantity" id="quantity{{ product.id }}" value="1" min="1">
+          <button type="submit">Add to cart</button>
+        </form>
+        <br><br>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
